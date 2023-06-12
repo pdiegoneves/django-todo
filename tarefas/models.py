@@ -19,4 +19,5 @@ class Tarefa(models.Model):
     categoria = models.CharField(max_length=25, choices=OPCOES_CATEGORIAS, default='importante')
     status = models.CharField(max_length=25, choices=OPCOES_STATUS, default='pendente')
 
-    
+    def __str__(self):
+        return f'{self.descricao} | {self.categoria} | {self.status}'
