@@ -15,7 +15,7 @@
 <hr>
     <h1>Tarefas Pendentes</h1>
     <div class="list-group">
-        {% for tarefa in tarefas_concluidas %}
+        {% for tarefa in tarefas_adiadas %}
         
         {% if tarefa.categoria  == 'urgente' %}
             <button type="button" class="list-group-item list-group-item-danger list-group-item-action " data-bs-toggle="modal" data-bs-target="#modal{{ tarefa.id }}"> 
@@ -39,6 +39,9 @@
                 </div>
                 <div class="modal-body">
                   <p>
+                    <a class="btn btn-success" href="{% url 'concluir_tarefa' tarefa.id %}">Concluir</a>
+                    <a class="btn btn-warning" href="{% url 'mover_para_tarefas' tarefa.id %}">Mover para Tarefas</a>
+                    <a class="btn btn-primary" href="{% url 'editar_tarefa' tarefa.id %}">Editar</a>
                     <a class="btn btn-danger" href="{% url 'excluir_tarefa' tarefa.id %}">Excluir</a>
                   </p>
                 </div>
