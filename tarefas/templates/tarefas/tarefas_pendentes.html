@@ -1,11 +1,39 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tarefas Pendentes</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}Tarefas Pendentes{% endblock %}
+
+{% block content %}
+<h1>Tarefas Pendentes</h1>
+<div class="list-group">
+    {% for tarefa in tarefas_pendentes %}
     
-</body>
-</html>
+    {% if tarefa.categoria  == 'urgente' %}
+        <button type="button" class="list-group-item list-group-item-danger list-group-item-action " data-bs-toggle="modal" data-bs-target="#modal{{ tarefa.id }}"> 
+    {% elif tarefa.categoria == 'importante'  %}
+        <button type="button" class="list-group-item list-group-item-warning list-group-item-action " data-bs-toggle="modal" data-bs-target="#modal{{ tarefa.id }}">
+    {% else %}
+     <button type="button" class="list-group-item list-group-item-primary list-group-item-action " data-bs-toggle="modal" data-bs-target="#modal{{ tarefa.id }}">
+    {% endif %}
+
+            <h5>{{ tarefa.descricao }}</h5>
+            <small>Criado em: {{ tarefa.criacao.day }}/{{ tarefa.criacao.month }}/{{ tarefa.criacao.year }}</small>
+        </button>
+         <!-- Modal -->
+      <div class="modal fade" id="modal{{ tarefa.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">{{ tarefa.descricao }} | {{ tarefa.categoria|capfirst }}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>
+                Modal Body
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+</div>
+{% endblock %}
