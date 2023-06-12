@@ -5,3 +5,13 @@ class AdicionarTarefa(forms.ModelForm):
     class Meta:
         model = Tarefa
         fields = ('descricao', 'categoria')
+
+class EditarTarefaForm(forms.Form):
+    OPCOES_CATEGORIAS = (
+        ('urgente', 'Urgente'),
+        ('importante', 'Importante'),
+        ('precisa ser feito', 'Precisa ser feito'),
+    )
+
+    tarefa = forms.CharField(max_length=400)
+    categoria = forms.ChoiceField(choices=OPCOES_CATEGORIAS)
